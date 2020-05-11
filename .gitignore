@@ -1,0 +1,11 @@
+/venv/
+/.idea/
+*.py[cod]
+node_modules
+*.DS_Store
+/src/custom_settings/custom_settings.py
+/src/static/
+/postgres/
+/src/log.log
+old
+media

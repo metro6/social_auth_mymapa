@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+  nginx:
+    image: nginx
+    container_name: social_auth_mymapa_nginx
+    restart: always
+    ports:
+    - "8001:8001"
+    volumes:
+      - ./src:/src
+      - ./config/nginx:/etc/nginx/conf.d
+    depends_on:
+      - web
+    networks:
+      - nginx_network
+  postgres:
+    image: postgres
+    restart: always
+    container_name: social_auth_mymapa_postgres
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
+    networks:
+      - database_network
+  web:
+    build: .
+    working_dir: /src
+    user: root
+    depends_on:
+      - postgres
+    restart: always
+    container_name: social_auth_mymapa_django
+    expose:
+      - "8001"
+    volumes:
+      - ./src:/src
+    networks:
+      - database_network
+      - nginx_network
+
+networks:
+  nginx_network:
+    driver: bridge
+  database_network:
+    driver: bridge

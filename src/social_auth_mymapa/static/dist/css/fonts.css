@@ -1,0 +1,15 @@
+/* fonts */
+@font-face {
+  font-family: Circle-rounded;
+  src: url("/static/dist/fonts/Circe_Rounded_Bold.otf");
+  font-style: normal;
+  font-weight: 400;
+}
+@font-face {
+  font-family: Museo-Cyrl;
+  src: url("/static/dist/fonts/Museocyrl500.ttf");
+  font-weight: 500;
+  font-style: normal;
+}
+
+/*# sourceMappingURL=fonts.css.map */
