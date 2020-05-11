@@ -4,20 +4,18 @@ from django.conf.urls import url, include
 from django.conf import settings
 from django.views.static import serve
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from django.contrib.auth import views as auth_views
 from django.conf.urls.i18n import i18n_patterns
 
 
-
 from . import views as social_auth_mymapa
+
 
 admin.autodiscover()
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'api/', include('apps.api.urls')),
-    path("login/", social_auth_mymapa.login, name="login"),
-    path("logout/", auth_views.LogoutView.as_view(), name="logout"),
+    url(r'user/', include('apps.user.urls')),
     path('social-auth/', include('social_django.urls', namespace="social")),
 ]
 

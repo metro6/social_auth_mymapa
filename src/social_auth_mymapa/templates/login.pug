@@ -2,7 +2,30 @@
 -load static
 -block content
   .container
-    .block-login
-      a(href="{% url 'social:begin' 'facebook' %}") facebook
-      a(href="{% url 'social:begin' 'google-oauth2' %}") google
-
+    .block-login-container
+      .block-login
+        .block-social-auth
+          p SIGN UP WITH
+          .social-links
+            a.fb(href="{% url 'social:begin' 'facebook' %}") facebook
+            p /
+            a.google(href="{% url 'social:begin' 'google-oauth2' %}") google
+        .block-or or
+        .block-login-form
+          form.register-form
+            p.errors
+            input(name="first_name", placeholder="First name", required)
+            input(name="last_name", placeholder="Last name", required)
+            input(name="email", placeholder="email", required)
+            input(name="password", placeholder="password", type="password", required)
+            input#password2(name="password2", placeholder="password2", type="password", required)
+            input(type="submit", value="REGISTER")
+        .block-bottom-login
+           button#show-login-form SHOW LOGIN FORM
+           form.login-form(style="display:none;")
+             p.errors
+             input(name="email", placeholder="email", required)
+             input(name="password", placeholder="password", type="password", required)
+             input(type="submit", value="LOG IN")
+  script(src="{% static 'dist/js/vendor/jquery.validate.min.js' %}")
+  script(src="{% static 'dist/js/login.js' %}")

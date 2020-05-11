@@ -7,19 +7,20 @@ from django.utils.translation import ugettext_lazy as _
 
 class UserManager(BaseUserManager):
 
-    def create_user(self, email, username, password="password"):
+    def create_user(self, email, username, last_name, password="password"):
         if self._exists_user(email):
             user = User.objects.get(email=email)
             return user
             # raise UserExists("Пользователь с такими данными уже есть в базе")
-        user = self.model(email=email, username=username)
+        user = self.model(email=email, username=username, last_name=last_name)
         user.set_password(password)
         user.save()
         return user
 
-    def create_superuser(self, email, username, password):
+    def create_superuser(self, email, username, last_name, password):
         user = self.model(email=email)
         user.username = username
+        user.last_name = last_name
         user.set_password(password)
         user.is_staff = True
         user.is_superuser = True
@@ -43,6 +44,7 @@ class UserManager(BaseUserManager):
         for user in User.objects.all():
             users.append({
                 "username": user.username,
+                "last_name": user.last_name,
                 "email": user.email,
                 "date_joined": user.date_joined,
             })
@@ -53,12 +55,13 @@ class UserManager(BaseUserManager):
     def update_user(validate_data):
         user = User.objects.get(email=validate_data['email'])
         user.username = validate_data['username']
+        user.last_name = validate_data['last_name']
         user.set_password(validate_data['username'])
         user.save()
         return user
 
-    def update_user_user(self, email, username, password):
-        user = self.model(email=email, username=username)
+    def update_user_user(self, email, username, last_name, password):
+        user = self.model(email=email, username=username, last_name=last_name)
         user.set_password(password)
         try:
             user.save(force_insert=True)
@@ -70,6 +73,7 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.CharField(_('E-mail'), max_length=255, unique=True, blank=False)
     username = models.CharField(_('Имя пользователя'), max_length=255, unique=False, blank=False)
+    last_name = models.CharField(_('Фамилия пользователя'), max_length=255, unique=False, blank=False)
     phone = models.CharField(_('Телефон'), max_length=16, blank=True)
     is_staff = models.BooleanField(_('Права на доступ в админ. панель'), default=False)
     is_superuser = models.BooleanField(_('Права суперпользователя'), default=False)

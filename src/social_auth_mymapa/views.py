@@ -9,12 +9,3 @@ def main(request):
   return render(request, template, {
     'head_text': head_text,
   })
-
-
-def login(request):
-  head_text = 'Login'
-  template = 'login.pug'
-
-  return render(request, template, {
-    'head_text': head_text
-  })

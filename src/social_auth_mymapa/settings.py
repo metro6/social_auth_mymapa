@@ -161,7 +161,7 @@ SWAGGER_SETTINGS = {
 
 # LOGIN URLS
 
-LOGIN_URL = 'login'
+LOGIN_URL = 'user/login'
 LOGIN_REDIRECT_URL = 'home'
-LOGOUT_URL = 'logout'
-LOGOUT_REDIRECT_URL = 'login'
+LOGOUT_URL = 'user/logout'
+LOGOUT_REDIRECT_URL = 'user/login'
